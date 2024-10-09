@@ -46,7 +46,7 @@ app.get('/cart/edit', (req, res) => {
   let productId = parseFloat(req.query.productId);
   let quantity = parseFloat(req.query.quantity);
    cart = updateQuantity(cart, productId, quantity);
-  res.json({ cartItems: updatedResult });
+  res.json({ cartItems: cart });
 });
 let removeProduct = (item, productId) => {
   return item.productId !== productId;
@@ -55,7 +55,7 @@ let removeProduct = (item, productId) => {
 app.get('/cart/delete', (req, res) => {
   let productId = parseFloat(req.query.productId);
   cart = cart.filter((item) => removeProduct(item, productId));
-  res.json({ cartItems: updatedResult });
+  res.json({ cartItems: cart });
 });
 
 //Endpoint 4: Read Items in the Cart
