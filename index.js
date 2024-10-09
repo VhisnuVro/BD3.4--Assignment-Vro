@@ -28,8 +28,8 @@ app.get('/cart/add', (req, res) => {
   let name = req.query.name;
   let price = parseFloat(req.query.price);
   let quantity = parseFloat(req.query.quantity);
-  let updatedResult = addProducts(cart, productId, name, price, quantity);
-  res.json({ cartItems: updatedResult });
+   cart = addProducts(cart, productId, name, price, quantity);
+  res.json({ cartItems: cart });
 });
 
 // Endpoint 2: Edit Quantity of an Item in the Cart
@@ -45,7 +45,7 @@ let updateQuantity = (cart, productId, quantity) => {
 app.get('/cart/edit', (req, res) => {
   let productId = parseFloat(req.query.productId);
   let quantity = parseFloat(req.query.quantity);
-  let updatedResult = updateQuantity(cart, productId, quantity);
+   cart = updateQuantity(cart, productId, quantity);
   res.json({ cartItems: updatedResult });
 });
 let removeProduct = (item, productId) => {
@@ -54,7 +54,7 @@ let removeProduct = (item, productId) => {
 //Endpoint 3: Delete an Item from the Cart
 app.get('/cart/delete', (req, res) => {
   let productId = parseFloat(req.query.productId);
-  let updatedResult = cart.filter((item) => removeProduct(item, productId));
+  cart = cart.filter((item) => removeProduct(item, productId));
   res.json({ cartItems: updatedResult });
 });
 
@@ -76,6 +76,7 @@ let checkTotal = (cart) => {
   }
   return total;
 };
+
 app.get('/cart/total-price', (req, res) => {
   let totalPrice = checkTotal(cart);
   res.json({ totalPrice: totalPrice });
